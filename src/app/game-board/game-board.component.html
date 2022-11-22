@@ -1,0 +1,12 @@
+<main>
+    <mat-grid-list cols="3">
+        <ng-template ngFor let-square [ngForOf]="squares" let-i="index">
+            <mat-grid-tile >
+                <app-square [owned_by]="square" (click)="makeMove(i)" [disable_me]="winnerExists"></app-square>
+            </mat-grid-tile>
+        </ng-template>
+
+
+    </mat-grid-list>
+
+</main>
