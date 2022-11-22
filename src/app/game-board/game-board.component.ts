@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlayerState } from '../winner.service';
+import { GameStateService, PlayerState } from '../GameStateService.service';
 
 @Component({
   selector: 'app-game-board',
@@ -7,15 +7,21 @@ import { PlayerState } from '../winner.service';
   styleUrls: ['./game-board.component.sass']
 })
 export class GameBoardComponent {
+  constructor(public gameStateService: GameStateService) {  }
+  public ngOnInit() {
+    this.gameStateService.restartEvent$.subscribe(() => {
+      this.squares = new Array(9).fill(PlayerState.None);
+    })
+  }
   squares: PlayerState[] = new Array(9).fill(PlayerState.None);
   circleIsNext: boolean = false;
-  winner: PlayerState | null = null;
+
   get player() {
     return this.circleIsNext ? PlayerState.Circle : PlayerState.Cross
   }
 
   get winnerExists() {
-    return this.winner !== null;
+    return this.gameStateService.getWinner !== null
   }
 
   makeMove(index: number) {
@@ -24,9 +30,11 @@ export class GameBoardComponent {
       throw new Error("invalid square clicked");
     if (this.squares[index] !== PlayerState.None || this.winnerExists)
       return;
-    this.circleIsNext = !this.circleIsNext
-    this.squares.splice(index, 1, this.player)
-    this.winner = this.calculateWinner();
+    this.circleIsNext = !this.circleIsNext;
+    this.squares.splice(index, 1, this.player);
+    let winner = this.calculateWinner();
+    if (winner !== null)
+      this.gameStateService.setWinner = winner;
 
   }
 
@@ -54,3 +62,7 @@ export class GameBoardComponent {
     return null;
   }
 }
+function resetGame() {
+  throw new Error('Function not implemented.');
+}
+

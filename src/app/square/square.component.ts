@@ -1,6 +1,6 @@
 import { state } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { PlayerState } from '../winner.service';
+import { PlayerState } from '../GameStateService.service';
 
 @Component({
   selector: 'app-square',
