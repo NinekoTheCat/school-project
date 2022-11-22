@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PlayerState } from '../square/square.component';
+import { PlayerState } from '../winner.service';
 
 @Component({
   selector: 'app-game-board',
