@@ -9,13 +9,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { NavBarComponent } from './nav-bar/nav-bar.component'; 
-import {MatCardModule} from '@angular/material/card'; 
+import {MatCardModule} from '@angular/material/card';
+import { WinnerDialogueComponent } from './winner-dialogue/winner-dialogue.component'; 
+import {MatDialogModule} from '@angular/material/dialog'; 
 @NgModule({
     declarations: [
         AppComponent,
         SquareComponent,
         GameBoardComponent,
-        NavBarComponent
+        NavBarComponent,
+        WinnerDialogueComponent
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -25,7 +28,8 @@ import {MatCardModule} from '@angular/material/card';
         BrowserAnimationsModule,
         MatGridListModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatDialogModule
     ]
 })
 export class AppModule { }

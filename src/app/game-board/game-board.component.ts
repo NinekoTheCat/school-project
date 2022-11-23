@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { GameStateService, PlayerState } from '../GameStateService.service';
+import { WinnerDialogueComponent } from '../winner-dialogue/winner-dialogue.component';
 
 @Component({
   selector: 'app-game-board',
@@ -7,7 +9,7 @@ import { GameStateService, PlayerState } from '../GameStateService.service';
   styleUrls: ['./game-board.component.sass']
 })
 export class GameBoardComponent {
-  constructor(public gameStateService: GameStateService) {  }
+  constructor(public gameStateService: GameStateService, public dialogue: MatDialog) { }
   public ngOnInit() {
     this.gameStateService.restartEvent$.subscribe(() => {
       this.squares = new Array(9).fill(PlayerState.None);
@@ -33,9 +35,14 @@ export class GameBoardComponent {
     this.circleIsNext = !this.circleIsNext;
     this.squares.splice(index, 1, this.player);
     let winner = this.calculateWinner();
-    if (winner !== null)
-      this.gameStateService.setWinner = winner;
+    if (winner === null)
+      return;
+    this.gameStateService.setWinner = winner;
+    this.openWinDialogue()
+  }
 
+  openWinDialogue() {
+    this.dialogue.open (WinnerDialogueComponent)
   }
 
   calculateWinner() {
@@ -61,8 +68,5 @@ export class GameBoardComponent {
     }
     return null;
   }
-}
-function resetGame() {
-  throw new Error('Function not implemented.');
 }
 
