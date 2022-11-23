@@ -16,11 +16,6 @@ export class GameBoardComponent {
     })
   }
   squares: PlayerState[] = new Array(9).fill(PlayerState.None);
-  circleIsNext: boolean = false;
-
-  get player() {
-    return this.circleIsNext ? PlayerState.Circle : PlayerState.Cross
-  }
 
   get winnerExists() {
     return this.gameStateService.getWinner !== null
@@ -32,10 +27,10 @@ export class GameBoardComponent {
       throw new Error("invalid square clicked");
     if (this.squares[index] !== PlayerState.None || this.winnerExists)
       return;
-    this.circleIsNext = !this.circleIsNext;
-    this.squares.splice(index, 1, this.player);
+    this.squares.splice(index, 1, this.gameStateService.turnTaker);
+    this.gameStateService.switchTurn()
     let winner = this.calculateWinner();
-    if (winner === null)
+    if (winner === null || winner === PlayerState.None)
       return;
     this.gameStateService.setWinner = winner;
     this.openWinDialogue()
