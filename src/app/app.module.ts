@@ -12,6 +12,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MatCardModule} from '@angular/material/card';
 import { WinnerDialogueComponent } from './winner-dialogue/winner-dialogue.component'; 
 import {MatDialogModule} from '@angular/material/dialog'; 
+import { LayoutModule } from '@angular/cdk/layout';
 @NgModule({
     declarations: [
         AppComponent,
@@ -29,7 +30,9 @@ import {MatDialogModule} from '@angular/material/dialog';
         MatGridListModule,
         MatButtonModule,
         MatCardModule,
-        MatDialogModule
+        MatDialogModule,
+        BrowserModule,
+        LayoutModule
     ]
 })
 export class AppModule { }
