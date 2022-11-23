@@ -5,18 +5,36 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class GameStateService {
-  private winner: PlayerState | null= null
+  private winner: PlayerState | null = null
   private restart$: BehaviorSubject<undefined> = new BehaviorSubject(undefined)
+  private currentPlayer: PlayerState.Circle | PlayerState.Cross = PlayerState.Cross
   constructor() { }
 
   get getWinner() {
     return this.winner
   }
-  get restartEvent$() : Observable<undefined> {
+  get restartEvent$(): Observable<undefined> {
     return this.restart$
   }
+  set turnTaker(turner: PlayerState.Circle | PlayerState.Cross) {
+    this.currentPlayer = turner
+  }
+  get turnTaker() {
+    return this.currentPlayer
+  }
 
-  set setWinner(winner: PlayerState){ 
+  switchTurn() {
+    switch (this.turnTaker) {
+      case PlayerState.Circle:
+        this.turnTaker = PlayerState.Cross
+        break;
+
+      default:
+        this.turnTaker = PlayerState.Circle
+        break;
+    }
+  }
+  set setWinner(winner: PlayerState.Circle | PlayerState.Cross) {
     this.winner = winner
   }
 
@@ -26,19 +44,19 @@ export class GameStateService {
   }
 }
 
-  export enum PlayerState {
-    Cross,
-    Circle,
-    None
-  }
+export enum PlayerState {
+  Cross,
+  Circle,
+  None
+}
 
-  export function playerStateToChar(state: PlayerState) {
-    switch (state) {
-      case PlayerState.Circle:
-        return 'O';
-      case PlayerState.Cross:
-        return 'X';
-      default:
-        return ' ';
-    }
+export function playerStateToChar(state: PlayerState) {
+  switch (state) {
+    case PlayerState.Circle:
+      return 'O';
+    case PlayerState.Cross:
+      return 'X';
+    default:
+      return ' ';
   }
+}

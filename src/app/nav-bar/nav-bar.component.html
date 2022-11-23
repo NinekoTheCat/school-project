@@ -1,7 +1,8 @@
 <nav>
     <mat-card class="content">
-        <mat-card-title>Options</mat-card-title>
+        <mat-card-title>Game Misc</mat-card-title>
         <mat-card-content>
+            <h3 *ngIf="!winnerExists()">it's {{currentTurnTaker()}}'s turn</h3>
             <button (click)="restartGame()" mat-raised-button>Restart Game</button>
         </mat-card-content>
     </mat-card>
