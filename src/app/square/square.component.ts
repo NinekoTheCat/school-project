@@ -1,6 +1,6 @@
 import { state } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { PlayerState } from '../GameStateService.service';
+import { PlayerState, playerStateToChar } from '../GameStateService.service';
 
 @Component({
   selector: 'app-square',
@@ -29,16 +29,7 @@ export class SquareComponent {
   }
 }
 
-function playerStateToChar(state: PlayerState) {
-  switch (state) {
-    case PlayerState.Circle:
-      return 'O';
-    case PlayerState.Cross:
-      return 'X';
-    default:
-      return ' ';
-  }
-}
+
 
 
 

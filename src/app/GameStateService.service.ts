@@ -31,3 +31,14 @@ export class GameStateService {
     Circle,
     None
   }
+
+  export function playerStateToChar(state: PlayerState) {
+    switch (state) {
+      case PlayerState.Circle:
+        return 'O';
+      case PlayerState.Cross:
+        return 'X';
+      default:
+        return ' ';
+    }
+  }
